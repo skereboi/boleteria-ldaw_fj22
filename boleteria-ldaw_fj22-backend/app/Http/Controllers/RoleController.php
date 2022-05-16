@@ -23,9 +23,8 @@ class RoleController extends Controller
 
     public function getPermissions($id)
     {
-        //$validate = ['active' => '1', 'id' => $id];
-        $roles = Role::find($id)->permissions()->get()->toJson();
-        return response($roles, 200);
+        $permissions = Role::find($id)->permissions()->get()->toJson();
+        return response($permissions, 200);
     }
 
      /** POST **/

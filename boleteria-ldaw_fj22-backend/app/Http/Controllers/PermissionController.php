@@ -21,6 +21,12 @@ class PermissionController extends Controller
          return response($category, 200);
     }
 
+    public function getRoles($id)
+    {
+        $roles = Permission::find($id)->roles()->get()->toJson();
+        return response($roles, 200);
+    }
+
      /** POST **/
     public function store(Request $request)
     {

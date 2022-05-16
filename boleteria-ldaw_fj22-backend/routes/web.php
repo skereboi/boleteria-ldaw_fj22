@@ -25,8 +25,8 @@ Route::resources(['roles' => RoleController::class]);
 Route::resources(['users' => UserController::class]);
 
 /* GET Many to Many Routes */
-Route::get('/roles/{id}/permission',[RoleController::class, "getPermissions"]);
-
+Route::get('/roles/{id}/permissions',[RoleController::class, "getPermissions"]);
+Route::get('/permissions/{id}/roles',[PermissionController::class, "getRoles"]);
 /* TEST ROUTES */
 Route::get('/', function () { return "<h1>XD</h1>";});
 Route::get('/testDB',[_TestController::class, "testConnect"]);
