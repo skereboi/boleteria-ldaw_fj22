@@ -17,8 +17,15 @@ class RoleController extends Controller
     public function show($id)
     {
          $validate = ['active' => '1', 'id' => $id];
-         $category = Role::where($validate)->get()->toJson();
-         return response($category, 200);
+         $role = Role::where($validate)->get()->toJson();
+         return response($role, 200);
+    }
+
+    public function getPermissions($id)
+    {
+        //$validate = ['active' => '1', 'id' => $id];
+        $roles = Role::find($id)->permissions()->get()->toJson();
+        return response($roles, 200);
     }
 
      /** POST **/
@@ -68,6 +75,7 @@ class RoleController extends Controller
          }
         
     }
+
     public function destroy($id)
     {
         

@@ -24,6 +24,8 @@ Route::resources(['permissions' => PermissionController::class]);
 Route::resources(['roles' => RoleController::class]);
 Route::resources(['users' => UserController::class]);
 
+/* GET Many to Many Routes */
+Route::get('/roles/{id}/permission',[RoleController::class, "getPermissions"]);
 
 /* TEST ROUTES */
 Route::get('/', function () { return "<h1>XD</h1>";});
