@@ -10,6 +10,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\_TestController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
 
 
 /*--------------------------------------------------------------------------
@@ -18,7 +20,9 @@ use App\Http\Controllers\EventController;
 
 Route::resources(['categories' => CategoryController::class]);
 Route::resources(['events' => EventController::class]);
-Route::resource('users',UserController::class);
+Route::resources(['permissions' => PermissionController::class]);
+Route::resources(['roles' => RoleController::class]);
+Route::resources(['users' => UserController::class]);
 
 
 /* TEST ROUTES */
