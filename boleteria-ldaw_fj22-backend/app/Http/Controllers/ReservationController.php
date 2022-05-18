@@ -16,7 +16,7 @@ class ReservationController extends Controller
     }
 
      /**  GET ONE **/
-     public function getReservation($event_id, $user_id)
+     public function show($event_id, $user_id)
      {
          $validate = ['active' => '1', 'event_id' => $event_id,  'user_id' => $user_id];
          $reservation = Reservation::where($validate)->get('qr_code')->toJson();
@@ -60,7 +60,7 @@ class ReservationController extends Controller
     }
     
     /** PUT - Update **/
-    public function editReservation(Request $request, $event_id, $user_id)
+    public function update(Request $request, $event_id, $user_id)
     {
         //Parsear request a JSON
         $json = json_encode($request->all(),true);
@@ -76,7 +76,7 @@ class ReservationController extends Controller
         ->json(['msg' => "Reservacion no encontrada"], 400);
         
     }
-    public function destroyReservation($event_id, $user_id)
+    public function destroy($event_id, $user_id)
     {
         
         $validate = ['active' => '1', 'event_id' => $event_id,  'user_id' => $user_id];

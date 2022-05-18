@@ -43,9 +43,9 @@ Route::get('/categories/{id}/events',[CategoryController::class, "getEvents"]);
 Route::get('/events/{id}/categories',[EventController::class, "getCategories"]);
 
 /** Reservation table Special Tables */
-Route::get('/events/{event_id}/users/{user_id}',[ReservationController::class, "getReservation"]);
-Route::put('/events/{event_id}/users/{user_id}',[ReservationController::class, "editReservation"]);
-Route::delete('/events/{event_id}/users/{user_id}',[ReservationController::class, "destroyReservation"]);
+Route::get('/events/{event_id}/users/{user_id}',[ReservationController::class, "show"]);
+Route::put('/events/{event_id}/users/{user_id}',[ReservationController::class, "update"]);
+Route::delete('/events/{event_id}/users/{user_id}',[ReservationController::class, "destroy"]);
 
 /* TEST ROUTES */
 Route::get('/', function () { return "<img src='https://http.dog/417.jpg'>XD</img>";});
