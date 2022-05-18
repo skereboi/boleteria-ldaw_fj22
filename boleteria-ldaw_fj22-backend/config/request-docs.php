@@ -67,7 +67,7 @@ return [
                 ],
             ],
             '202' => [
-                'description' => 'Create successful',
+                'description' => 'Accepted successful',
                 'content'     => [
                     'application/json' => [
                         'schema' => [
