@@ -22,6 +22,32 @@ class UserController extends Controller
          return response($category, 200);
     }
 
+    /** GET PREFERENCES */
+    public function getPreferences($id)
+    {
+        if (!(User::find($id))) {
+            return response()->json(['msg' => "Usuario no encontrado"], 400);
+        }
+        $preferences = User::find($id)->preferences()->get()->toJson();
+        if ($preferences == "[]") {
+            return response()->json(['msg' => "No existe la informacion solicitada"], 400);
+         }
+        return response($preferences, 200);
+    }
+
+     /** GET EVENTS */
+     public function getEvents($id)
+     {
+         if (!(User::find($id))) {
+             return response()->json(['msg' => "Usaurio no encontrado"], 400);
+         }
+         $preferences = User::find($id)->eventsOrganized()->get()->toJson();
+         if ($preferences == "[]") {
+             return response()->json(['msg' => "No existe la informacion solicitada"], 400);
+          }
+         return response($preferences, 200);
+     }
+
      /** POST **/
     public function store(Request $request)
     {

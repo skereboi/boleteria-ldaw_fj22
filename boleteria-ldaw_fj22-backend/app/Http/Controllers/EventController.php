@@ -22,6 +22,31 @@ class EventController extends Controller
          $category = Event::where($validate)->get()->toJson();
          return response($category, 200);
     }
+    /**  GET USER **/
+    public function getUsers($id)
+     {
+         if (!(Event::find($id))) {
+             return response()->json(['msg' => "Evento no encontrado"], 400);
+         }
+         $preferences = Event::find($id)->owners()->get()->toJson();
+         if ($preferences == "[]") {
+             return response()->json(['msg' => "No existe la informacion solicitada"], 400);
+          }
+         return response($preferences, 200);
+     }
+     /**  GET USER **/
+    public function getCategories($id)
+    {
+        if (!(Event::find($id))) {
+            return response()->json(['msg' => "Evento no encontrado"], 400);
+        }
+        $preferences = Event::find($id)->categories()->get()->toJson();
+        if ($preferences == "[]") {
+            return response()->json(['msg' => "No existe la informacion solicitada"], 400);
+         }
+        return response($preferences, 200);
+    }
+
 
      /** POST **/
     public function store(Request $request)

@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withPivot('id');
+    }
+    public function events()
+    {
+        return $this->belongsToMany(Event::class)->withPivot('id');
+    }
 }

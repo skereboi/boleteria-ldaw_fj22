@@ -12,8 +12,7 @@ class CategoryController extends Controller
     /**  GET ALL **/
     public function index()
     {
-        $categories = Category::where('active', 1)->get()->toJson();
-        return response($categories, 200);
+        return response(Category::where('active', 1)->get()->toJson(), 200);
     }
 
      /**  GET ONE **/
@@ -21,8 +20,34 @@ class CategoryController extends Controller
      {
          $validate = ['active' => '1', 'id' => $id];
          $category = Category::where($validate)->get()->toJson();
-         return response($category, 200);
+         return response($category,200);
+         
      }
+     /** GET USERS */
+    public function getUsers($id)
+    {   
+        if (!(Category::find($id))) {
+            return response()->json(['msg' => "Categoria no encontrado"], 400);
+        }
+        $users = Category::find($id)->users()->get()->toJson();
+        if ($users == "[]") {
+            return response()->json(['msg' => "No existe la informacion solicitada"], 400);
+         }
+        return response($users, 200);
+    }
+    /** GET EVENTS */
+    public function getEvents($id)
+    {   
+        if (!(Category::find($id))) {
+            return response()->json(['msg' => "Categoria no encontrado"], 400);
+        }
+        $users = Category::find($id)->events()->get()->toJson();
+        if ($users == "[]") {
+            return response()->json(['msg' => "No existe la informacion solicitada"], 400);
+         }
+        return response($users, 200);
+    }
+
      /** POST **/
     public function store(Request $request)
     {
