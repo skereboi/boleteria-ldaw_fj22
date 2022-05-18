@@ -3,50 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Role;
 
-class UserController extends Controller
+class RoleController extends Controller
 {
-    /**  GET ALL **/
     public function index()
     {
-        $users = User::where('active', 1)->get()->toJson();
-        return response($users, 200);
+        $events = Role::where('active', 1)->get()->toJson();
+        return response($events, 200);
     }
 
      /**  GET ONE **/
     public function show($id)
     {
          $validate = ['active' => '1', 'id' => $id];
-         $category = User::where($validate)->get()->toJson();
-         return response($category, 200);
+         $role = Role::where($validate)->get()->toJson();
+         return response($role, 200);
     }
 
-    /** GET PREFERENCES */
-    public function getPreferences($id)
+    public function getPermissions($id)
     {
-        if (!(User::find($id))) {
-            return response()->json(['msg' => "Usuario no encontrado"], 400);
-        }
-        $preferences = User::find($id)->preferences()->get()->toJson();
-        if ($preferences == "[]") {
-            return response()->json(['msg' => "No existe la informacion solicitada"], 400);
-         }
-        return response($preferences, 200);
+        $permissions = Role::find($id)->permissions()->get()->toJson();
+        return response($permissions, 200);
     }
-
-     /** GET EVENTS */
-     public function getEvents($id)
-     {
-         if (!(User::find($id))) {
-             return response()->json(['msg' => "Usaurio no encontrado"], 400);
-         }
-         $preferences = User::find($id)->eventsOrganized()->get()->toJson();
-         if ($preferences == "[]") {
-             return response()->json(['msg' => "No existe la informacion solicitada"], 400);
-          }
-         return response($preferences, 200);
-     }
 
      /** POST **/
     public function store(Request $request)
@@ -56,14 +35,14 @@ class UserController extends Controller
         //Parsear request a JSON
         $json = json_encode($request->all(),true);
         //Parsear JSON a PHP_Object
-        $users = json_decode($json,true);
+        $events = json_decode($json,true);
         /** foreach OBJ -> Querybuilder **/
-        foreach ($users as $user)  {
-            foreach ($user as $key => $value) {
+        foreach ($events as $event)  {
+            foreach ($event as $key => $value) {
                 $insertArr[str_slug($key,'_')] = $value;
             }
             //Contador de lineas afectadas
-            $affected+=User::insert($insertArr);
+            $affected+=Role::insert($insertArr);
         }
         // Response
         return response()
@@ -77,10 +56,10 @@ class UserController extends Controller
         $json = json_encode($request->all(),true);
         // JSON Array -> PHP OBJ 
         $data = json_decode($json,true);
-        $storeData = User::find($id);
+        $storeData = Role::find($id);
         if ($storeData == NULL) {
             return response()
-            ->json(['msg' => "Usuario no disponible"], 400);
+            ->json(['msg' => "Rol no disponible"], 400);
         }
         else {
             foreach ($data as $val)  {
@@ -90,23 +69,24 @@ class UserController extends Controller
             }
             if ($storeData->update()) {
                 return response()
-                ->json(['msg'  => "Usuario modificado"], 201);
+                ->json(['msg'  => "Rol modificado"], 201);
             }
          }
         
     }
+
     public function destroy($id)
     {
         
         $validate = ['active' => '1', 'id' => $id];
-        $status = User::where($validate)->update(['active' => 0]);
+        $status = Role::where($validate)->update(['active' => 0]);
         if ($status) {
             return response()
-            ->json(['msg' => "Usuario eliminado",
+            ->json(['msg' => "Rol eliminado",
             'rows affected' => $status], 202);
         }
         return response()
-        ->json(['msg' => "Usuario no encontrado",
+        ->json(['msg' => "Rol no encontrado",
         'rows affected' => $status], 400);
     }
     

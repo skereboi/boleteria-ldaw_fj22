@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Event extends Model
 {
     use HasFactory;
 
@@ -14,13 +14,12 @@ class User extends Model
         return $this->hasMany('App/Reservation','foreign_key');
     }
 
-    public function preferences()
+    public function owners()
+    {
+        return $this->belongsToMany(User::class)->withPivot('id');
+    }
+    public function categories()
     {
         return $this->belongsToMany(Category::class)->withPivot('id');
-    }
-
-    public function eventsOrganized()
-    {
-        return $this->belongsToMany(Event::class)->withPivot('id');
     }
 }
