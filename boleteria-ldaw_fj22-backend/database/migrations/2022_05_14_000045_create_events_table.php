@@ -22,6 +22,7 @@ return new class extends Migration
             $table->dateTime('end_date', $precision = 0)->nullable(false);
             $table->text('description')->nullable(false);
             $table->decimal('fee', $precision = 8, $scale = 2)->nullable(false);
+            $table->integer('attendant_limit')->nullable(false)->default(0);
             $table->text('place')->nullable(false);
             $table->boolean('active')->default(1);
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
