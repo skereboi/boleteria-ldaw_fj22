@@ -1,12 +1,26 @@
+/* eslint-disable no-unused-vars */
+import React from 'react'
+import { Route, Routes, BrowserRouter } from 'react-router-dom'
+import { GeneralProvider } from './context/general.context'
+import { TablesInfo } from './pages/Events/TablesInfo'
+import { initAxiosInterceptors } from './services/auth.service'
+initAxiosInterceptors()
 
-import './App.css';
-
-function App() {
+// eslint-disable-next-line react/display-name
+export default () => (
+  <GeneralProvider>
+        <App/>
+  </GeneralProvider>
+)
+const App = () => {
   return (
-    <div className="App">
-      Luis Jesus Morales - A01703455
-     </div>
-  );
+    <BrowserRouter>
+      <Routes>
+        <Route path='/'>
+          {/* Public routes */}
+            <Route path='table-info' element={<TablesInfo />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
 }
-
-export default App;
